@@ -38,7 +38,7 @@ const posts = [
     const {url, method} = request
   
     if (method === 'POST'){
-        if (url === '/users/signup'){
+        if (url === '/posts/add'){
           let body = '';
 
           request.on("data",(data)=>{
@@ -46,12 +46,12 @@ const posts = [
           })
 
           request.on('end',()=>{
-            const user = JSON.parse(body);
-            users.push({
-              id:user.id,
-              name:user.name,
-              email:user.email,
-              password:user.password,
+            const posts = JSON.parse(body);
+            posts.push({
+              id:post.id,
+              title:post.title,
+              content:post.content,
+              userId:post.userId,
             }
             );
             
@@ -59,7 +59,7 @@ const posts = [
           // response.end('okk!!!!!');
           });
           response.writeHead(200,{'Content-Type':'application/json'})
-          response.end(JSON.stringify({"message" : users}));
+          response.end(JSON.stringify({"message" : "postCreated"}));
         }
       }
     }
